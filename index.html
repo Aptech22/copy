@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rayan Sports Club</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 85px; }
+body { font-family: 'Poppins', sans-serif; background: #101827; }
+
+.hero {
+    min-height: 90vh; display: flex; align-items: center; padding: 80px 8%; position: relative;
+    background: linear-gradient(90deg, rgba(16,24,39,0.96), rgba(16,24,39,0.55), rgba(16,24,39,0.25)),
+    url('https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=1920') center/cover no-repeat;
+}
+.hero-content { max-width: 750px; color: white; }
+.tag { color: #D4AF72; font-size: 14px; font-weight: 600; letter-spacing: 3px; margin-bottom: 20px; }
+.hero h1 { font-size: clamp(38px, 6vw, 75px); font-weight: 800; line-height: 1.15; margin-bottom: 20px; }
+.hero h1 span { color: #D4AF72; }
+.hero p { color: #d1d5db; font-size: 16px; line-height: 1.9; max-width: 580px; margin-bottom: 35px; }
+.hero-buttons { display: flex; gap: 18px; flex-wrap: wrap; }
+.btn { text-decoration: none; padding: 15px 30px; border-radius: 5px; font-size: 13px; font-weight: 700; transition: 0.3s ease; display: inline-block; }
+.btn-primary { background: #D4AF72; color: #101827; border: 1px solid #D4AF72; }
+.btn-primary:hover { background: transparent; color: #D4AF72; transform: translateY(-4px); }
+.btn-secondary { color: white; border: 1px solid #D4AF72; }
+.btn-secondary:hover { background: #D4AF72; color: #101827; transform: translateY(-4px); }
+.hero-bottom { position: absolute; bottom: 25px; right: 8%; color: #D4AF72; font-size: 12px; letter-spacing: 3px; }
+
+.navbar { width: 100%; height: 85px; background: #101827; display: flex; align-items: center; justify-content: space-between; padding: 0 7%; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid rgba(212,175,114,0.2); }
+.logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+.logo-icon { width: 45px; height: 45px; background: #D4AF72; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 24px; }
+.logo-text h2 { color: white; font-size: 23px; font-weight: 800; letter-spacing: 2px; }
+.logo-text span { color: #D4AF72; font-size: 10px; letter-spacing: 3px; font-weight: 600; }
+.nav-links { display: flex; align-items: center; gap: 27px; list-style: none; }
+.nav-links li a { color: white; text-decoration: none; font-size: 12px; font-weight: 600; letter-spacing: 0.5px; transition: 0.3s; }
+.nav-links li a:hover, .nav-links li a.active { color: #D4AF72; }
+.dropdown { position: relative; }
+.dropdown-menu { position: absolute; top: 35px; left: 0; width: 175px; background: #182437; list-style: none; padding: 10px 0; border: 1px solid rgba(212,175,114,0.3); border-radius: 6px; opacity: 0; visibility: hidden; transform: translateY(10px); transition: 0.3s; }
+.dropdown:hover .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+.dropdown-menu li a { display: block; padding: 12px 18px; }
+.dropdown-menu li a:hover { background: #26354a; }
+.join-btn { background: #D4AF72; color: #101827; padding: 13px 23px; text-decoration: none; font-size: 12px; font-weight: 800; border-radius: 5px; transition: 0.3s; white-space: nowrap; }
+.join-btn:hover { background: white; transform: translateY(-3px); }
+.menu-toggle { display: none; flex-direction: column; gap: 6px; cursor: pointer; }
+.menu-toggle span { width: 27px; height: 3px; background: #D4AF72; border-radius: 5px; }
+
+.block { padding: 90px 8%; }
+.block.dark { background: #0c1320; }
+.block-title { max-width: 640px; margin-bottom: 45px; }
+.block-title h2 { color: white; font-size: clamp(28px, 4vw, 40px); font-weight: 800; line-height: 1.2; margin-bottom: 12px; }
+.block-title p { color: #AAB3C1; font-size: 15px; line-height: 1.8; }
+.grid { display: grid; gap: 24px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+
+.game-box { background: #182437; border-top: 4px solid #D4AF72; border-radius: 8px; padding: 30px 26px; display: flex; flex-direction: column; transition: 0.3s; }
+.game-box:hover { transform: translateY(-6px); }
+.game-box h3 { color: white; font-size: 21px; margin-bottom: 10px; }
+.game-box p { color: #AAB3C1; font-size: 13px; line-height: 1.8; flex: 1; margin-bottom: 18px; }
+.game-box .time { color: #D4AF72; font-size: 12px; font-weight: 600; }
+
+.perk { background: #101827; border-left: 3px solid #D4AF72; padding: 22px 24px; border-radius: 4px; }
+.perk h3 { color: white; font-size: 17px; margin-bottom: 6px; }
+.perk p { color: #AAB3C1; font-size: 13px; line-height: 1.7; }
+
+.plan { background: #182437; border: 1px solid #344052; border-radius: 8px; padding: 34px 28px; display: flex; flex-direction: column; position: relative; }
+.plan.best { border: 2px solid #D4AF72; }
+.plan .badge { position: absolute; top: -13px; left: 26px; background: #D4AF72; color: #101827; font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 20px; }
+.plan h3 { color: white; font-size: 20px; }
+.plan .price { color: #D4AF72; font-size: 32px; font-weight: 800; margin: 12px 0 18px; }
+.plan .price small { color: #AAB3C1; font-size: 13px; font-weight: 500; }
+.plan ul { list-style: none; margin-bottom: 26px; flex: 1; }
+.plan li { color: #d1d5db; font-size: 13px; padding: 9px 0; border-bottom: 1px solid #2a3750; }
+.plan .btn { text-align: center; }
+
+.footer { background: #101827; color: #fff; padding: 70px 8% 20px; border-top: 2px solid #D4AF72; }
+.footer-container { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1.3fr; gap: 40px; padding-bottom: 50px; }
+.footer-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; margin-bottom: 20px; }
+.footer-logo h2 { color: #fff; font-size: 24px; letter-spacing: 2px; }
+.footer-logo span { color: #D4AF72; font-size: 10px; letter-spacing: 3px; font-weight: 600; }
+.brand-column p { color: #AAB3C1; font-size: 13px; line-height: 1.9; max-width: 280px; }
+.social-links { display: flex; gap: 12px; margin-top: 25px; }
+.social-links a { width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; text-decoration: none; color: #D4AF72; background: #202B3B; border-radius: 5px; font-size: 12px; font-weight: 700; transition: 0.3s; }
+.social-links a:hover { background: #D4AF72; color: #101827; transform: translateY(-4px); }
+.footer-column h3 { color: #D4AF72; font-size: 14px; letter-spacing: 1px; margin-bottom: 25px; }
+.footer-column ul { list-style: none; }
+.footer-column ul li { margin-bottom: 14px; color: #AAB3C1; font-size: 13px; line-height: 1.8; }
+.footer-column ul li a { color: #AAB3C1; text-decoration: none; transition: 0.3s; }
+.footer-column ul li a:hover { color: #D4AF72; padding-left: 5px; }
+.footer-bottom { border-top: 1px solid #344052; padding-top: 25px; display: flex; justify-content: space-between; align-items: center; gap: 20px; }
+.footer-bottom p { color: #AAB3C1; font-size: 11px; }
+.footer-bottom div { display: flex; gap: 22px; }
+.footer-bottom a { color: #AAB3C1; text-decoration: none; font-size: 11px; }
+.footer-bottom a:hover { color: #D4AF72; }
+
+@media(max-width: 1100px) {
+    .navbar { padding: 0 4%; }
+    .nav-links { gap: 15px; }
+    .nav-links li a { font-size: 10px; }
+    .join-btn { padding: 11px 15px; }
+}
+@media(max-width: 1000px) { .footer-container { grid-template-columns: repeat(2, 1fr); } }
+@media(max-width: 850px) {
+    .navbar { height: 75px; }
+    .menu-toggle { display: flex; }
+    .join-btn { margin-left: auto; margin-right: 20px; }
+    .nav-links { position: absolute; top: 75px; left: 0; width: 100%; background: #101827; flex-direction: column; align-items: flex-start; gap: 0; padding: 15px 7%; display: none; border-top: 1px solid #D4AF72; }
+    .nav-links.active { display: flex; }
+    .nav-links li { width: 100%; padding: 15px 0; }
+    .nav-links li a { font-size: 13px; }
+    .dropdown-menu { position: static; display: none; opacity: 1; visibility: visible; transform: none; width: 100%; margin-top: 12px; }
+    .dropdown:hover .dropdown-menu { display: block; }
+}
+@media(max-width: 768px) {
+    .hero { min-height: 80vh; padding: 70px 6%; }
+    .hero h1 { font-size: 42px; }
+    .hero p { font-size: 14px; }
+    .btn { padding: 13px 20px; font-size: 11px; }
+    .hero-bottom { right: 6%; font-size: 9px; }
+}
+@media(max-width: 600px) {
+    .block { padding: 60px 6%; }
+    .footer { padding: 50px 6% 20px; }
+    .footer-container { grid-template-columns: 1fr; gap: 35px; }
+    .footer-bottom { flex-direction: column; text-align: center; }
+}
+@media(max-width: 480px) {
+    .logo-text h2 { font-size: 19px; }
+    .logo-icon { width: 38px; height: 38px; }
+    .join-btn { padding: 10px 12px; font-size: 10px; margin-right: 12px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+    <a href="#home" class="logo">
+        <div class="logo-icon">🏆</div>
+        <div class="logo-text"><h2>RAYAN</h2><span>SPORTS CLUB</span></div>
+    </a>
+    <ul class="nav-links" id="navLinks">
+        <li><a href="#home" class="active">HOME</a></li>
+        <li><a href="#about">ABOUT</a></li>
+        <li class="dropdown">
+            <a href="#sports">SPORTS ⌄</a>
+            <ul class="dropdown-menu">
+                <li><a href="#football">Football</a></li>
+                <li><a href="#cricket">Cricket</a></li>
+                <li><a href="#badminton">Badminton</a></li>
+                <li><a href="#basketball">Basketball</a></li>
+            </ul>
+        </li>
+        <li><a href="#facilities">FACILITIES</a></li>
+        <li><a href="#events">EVENTS</a></li>
+        <li><a href="#gallery">GALLERY</a></li>
+        <li><a href="#contact">CONTACT</a></li>
+    </ul>
+    <a href="#membership" class="join-btn">BOOK NOW →</a>
+    <div class="menu-toggle" id="menuToggle"><span></span><span></span><span></span></div>
+</nav>
+
+<section class="hero" id="home">
+    <div class="hero-content">
+        <div class="tag">WELCOME TO RAYAN CLUB</div>
+        <h1>UNLEASH YOUR <span>POTENTIAL.</span> PLAY LIKE A <span>CHAMPION.</span></h1>
+        <p>Join the ultimate sports community. Train harder, compete stronger and achieve greatness with Rayan Club.</p>
+        <div class="hero-buttons">
+            <a href="#membership" class="btn btn-primary">JOIN OUR CLUB →</a>
+            <a href="#sports" class="btn btn-secondary">EXPLORE SPORTS</a>
+        </div>
+    </div>
+    <div class="hero-bottom">SPORTS • PASSION • VICTORY</div>
+</section>
+
+<section class="block" id="sports">
+    <div class="block-title">
+        <h2>Games we offer</h2>
+        <p>Coaching is available for every game, whether you are just starting or already playing for a team.</p>
+    </div>
+    <div class="grid">
+        <div class="game-box" id="football">
+            <h3>Football</h3>
+            <p>Turf ground with floodlights. Train with the academy or just book the pitch for your friends.</p>
+            <div class="time">Mon to Sat, 5 PM to 10 PM</div>
+        </div>
+        <div class="game-box" id="cricket">
+            <h3>Cricket</h3>
+            <p>Practice nets and a match pitch. Coaches for kids and adults, bowling machine available.</p>
+            <div class="time">Every day, 4 PM to 10 PM</div>
+        </div>
+        <div class="game-box" id="badminton">
+            <h3>Badminton</h3>
+            <p>Indoor courts with good lighting. Book per hour, doubles night every week.</p>
+            <div class="time">Every day, 8 AM to 11 PM</div>
+        </div>
+        <div class="game-box" id="basketball">
+            <h3>Basketball</h3>
+            <p>Full court for open play and practice, with friendly matches on weekends.</p>
+            <div class="time">Tue to Sun, 5 PM to 10 PM</div>
+        </div>
+    </div>
+</section>
+
+<section class="block dark" id="facilities">
+    <div class="block-title">
+        <h2>What you get at the club</h2>
+        <p>Everything is in one place, so you can come, play and go home.</p>
+    </div>
+    <div class="grid">
+        <div class="perk"><h3>Gym</h3><p>Machines, free weights and a trainer on the floor.</p></div>
+        <div class="perk"><h3>Changing rooms</h3><p>Lockers and showers for members.</p></div>
+        <div class="perk"><h3>Floodlights</h3><p>Play late in the evening without any problem.</p></div>
+        <div class="perk"><h3>Cafe</h3><p>Tea, snacks and a place to sit after the game.</p></div>
+        <div class="perk"><h3>Parking</h3><p>Free parking for cars and bikes.</p></div>
+        <div class="perk"><h3>First aid</h3><p>First aid room with trained staff.</p></div>
+    </div>
+</section>
+
+<section class="block" id="membership">
+    <div class="block-title">
+        <h2>Membership plans</h2>
+        <p>Pay monthly and cancel any time.</p>
+    </div>
+    <div class="grid">
+        <div class="plan">
+            <h3>Basic</h3>
+            <div class="price">Rs. 3,000 <small>/ month</small></div>
+            <ul><li>One sport</li><li>Changing rooms</li><li>Weekend sessions</li></ul>
+            <a href="#contact" class="btn btn-secondary">Join Basic</a>
+        </div>
+        <div class="plan best">
+            <span class="badge">Most popular</span>
+            <h3>Pro</h3>
+            <div class="price">Rs. 5,500 <small>/ month</small></div>
+            <ul><li>Two sports</li><li>Gym access</li><li>Coaching sessions</li><li>Priority booking</li></ul>
+            <a href="#contact" class="btn btn-primary">Join Pro</a>
+        </div>
+        <div class="plan">
+            <h3>Elite</h3>
+            <div class="price">Rs. 8,500 <small>/ month</small></div>
+            <ul><li>All sports</li><li>Gym with personal trainer</li><li>Tournament entry</li><li>Guest passes</li></ul>
+            <a href="#contact" class="btn btn-secondary">Join Elite</a>
+        </div>
+    </div>
+</section>
+
+<footer class="footer" id="contact">
+    <div class="footer-container">
+        <div class="footer-column brand-column">
+            <a href="#home" class="footer-logo">
+                <div class="logo-icon">🏆</div>
+                <div><h2>RAYAN</h2><span>SPORTS CLUB</span></div>
+            </a>
+            <p>Building champions through passion, discipline and teamwork. Join Rayan Club and become part of our sports community.</p>
+            <div class="social-links">
+                <a href="#">IG</a><a href="#">FB</a><a href="#">YT</a><a href="#">X</a>
+            </div>
+        </div>
+        <div class="footer-column">
+            <h3>QUICK LINKS</h3>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#membership">Membership</a></li>
+                <li><a href="#events">Events</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#contact">Contact Us</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h3>OUR SPORTS</h3>
+            <ul>
+                <li><a href="#football">Football</a></li>
+                <li><a href="#cricket">Cricket</a></li>
+                <li><a href="#badminton">Badminton</a></li>
+                <li><a href="#basketball">Basketball</a></li>
+                <li><a href="#facilities">Fitness</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h3>CONTACT US</h3>
+            <ul>
+                <li>📍 Your Club Location</li>
+                <li>📞 +92 000 0000000</li>
+                <li>✉ info...mu3384774@gmail.com</li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>© 2026 Rayan Sports Club. All rights reserved.</p>
+        <div><a href="#privacy">Privacy Policy</a><a href="#terms">Terms & Conditions</a></div>
+    </div>
+</footer>
+
+<script>
+const menuToggle = document.getElementById("menuToggle");
+const navLinks = document.getElementById("navLinks");
+menuToggle.addEventListener("click", () => navLinks.classList.toggle("active"));
+document.querySelectorAll(".nav-links a").forEach(a => {
+    a.addEventListener("click", () => navLinks.classList.remove("active"));
+});
+</script>
+</body>
+</html>
